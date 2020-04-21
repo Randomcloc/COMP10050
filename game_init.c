@@ -46,35 +46,40 @@ void initialize_players(player players[PLAYERS_NUM])
 }
 
 //Set Invalid Squares (where it is not possible to place stacks)
-set_invalid(square * s){
+int set_invalid(square * s){
 s->type = INVALID;
 s->stack = NULL;
 s->num_pieces = 0;
+    return 0;
 }
 
 //Set Empty Squares (with no pieces/stacks)
-set_empty(square * s){
+int set_empty(square * s){
 s->type = VALID;
 s->stack = NULL;
 s->num_pieces = 0;
+    return 0;
 }
 
 //Set squares  with a GREEN piece
-set_green(square * s){
+int set_green(square * s){
 s->type = VALID;
 s->stack = (piece *) malloc (sizeof(piece));
 s->stack->p_color = GREEN;
 s->stack->next = NULL;
 s->num_pieces = 1;
+    return 0;
 }
 
 //Set squares with a RED piece
-set_red(square * s){
+int set_red(square * s){
 s->type = VALID;
 s->stack = (piece *) malloc (sizeof(piece));
 s->stack->p_color = RED;
 s->stack->next = NULL;
 s->num_pieces = 1;
+
+    return 0;
 }
 
 //initializes the board
@@ -106,46 +111,43 @@ void initialize_board(square board [BOARD_SIZE][BOARD_SIZE]){
     }
 }
 
-void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE])
+void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], int argc, char** argv)
 {
-    int x, y;
+    int x1, y1, x2, y2;
     char direc[5];
 
     printf("Select which stack you would like to move by entering the coordinates(x and y).\n ");
 
     printf("Enter the x-coordinates of the stack: ");
-    scanf("%d", &x);
+    scanf("%d", &x1);
 
     printf("\nEnter the y-coordinates of the stack: ");
-    scanf("%d", &y);
+    scanf("%d", &y1);
 
-    if(board[y][x].type == VALID)
+    if(board[y1][x1].type == VALID)
     {
-        printf("\nInput your moves in sequence, eg. UP(u), DOWN(d), LEFT(l), RIGHT(r) based on the number of pieced in your stack: ");
-        scanf("%s", direc);
+        printf("\nInput the co-ordinates of where you would like to move:\n ");
 
-        for (int i = 0; i < strlen(direc), i++)
+        printf("Enter the x-coordinates of the place: ");
+        scanf("%d", &x2);
+
+        printf("Enter the y-coordinates of the placw: ");
+        scanf("%d", &y2);
+
+        if (board[y2][x2].type == VALID)
         {
-            if(direc[i] == 'u')
-            {
-                y--;
+            if (board[y1][x1].num_pieces >= (abs(x2 - x1) + abs(y2 - y1))) {
+                board[y2][x2].num_pieces += board[y1][x1].num_pieces;
+
+                if (board[y2][x2].num_pieces > 5)
+                {
+
+                }
             }
 
-            else if(direc[i] == 'd')
-            {
-                y++;
-            }
-
-            else if(direc[i] == 'l')
-            {
-                x--;
-            }
-
-            else if(direc[i] == 'r')
-            {
-                x++;
-            }
         }
+
+
     }
 
 }
