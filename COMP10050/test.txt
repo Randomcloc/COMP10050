@@ -1,5 +1,0 @@
-1. This is my local text.
-
-2. This is changed directly on github.
-
-3. This is another push from local to remote repository.

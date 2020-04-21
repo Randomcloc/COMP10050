@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/Users/abhijeet/ucd/projects/Focus/game_init.c" "/Users/abhijeet/ucd/projects/Focus/cmake-build-debug/CMakeFiles/Focus.dir/game_init.c.o"
-  "/Users/abhijeet/ucd/projects/Focus/input_output.c" "/Users/abhijeet/ucd/projects/Focus/cmake-build-debug/CMakeFiles/Focus.dir/input_output.c.o"
-  "/Users/abhijeet/ucd/projects/Focus/main.c" "/Users/abhijeet/ucd/projects/Focus/cmake-build-debug/CMakeFiles/Focus.dir/main.c.o"
+  "/Users/abhijeet/ucd/projects/COMP10050/game_init.c" "/Users/abhijeet/ucd/projects/COMP10050/cmake-build-debug/CMakeFiles/Focus.dir/game_init.c.o"
+  "/Users/abhijeet/ucd/projects/COMP10050/input_output.c" "/Users/abhijeet/ucd/projects/COMP10050/cmake-build-debug/CMakeFiles/Focus.dir/input_output.c.o"
+  "/Users/abhijeet/ucd/projects/COMP10050/main.c" "/Users/abhijeet/ucd/projects/COMP10050/cmake-build-debug/CMakeFiles/Focus.dir/main.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

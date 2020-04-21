@@ -6,7 +6,15 @@
 
 #IncludeRegexTransform: 
 
-/Users/abhijeet/ucd/projects/Focus/hello_world.c
-ncurses.h
+/Users/abhijeet/ucd/projects/COMP10050/game_init.h
+
+/Users/abhijeet/ucd/projects/COMP10050/input_output.c
+stdio.h
 -
+input_output.h
+/Users/abhijeet/ucd/projects/COMP10050/input_output.h
+
+/Users/abhijeet/ucd/projects/COMP10050/input_output.h
+game_init.h
+/Users/abhijeet/ucd/projects/COMP10050/game_init.h
 
