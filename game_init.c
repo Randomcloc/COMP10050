@@ -111,44 +111,4 @@ void initialize_board(square board [BOARD_SIZE][BOARD_SIZE]){
     }
 }
 
-void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], int argc, char** argv)
-{
-    int x1, y1, x2, y2;
-    char direc[5];
-
-    printf("Select which stack you would like to move by entering the coordinates(x and y).\n ");
-
-    printf("Enter the x-coordinates of the stack: ");
-    scanf("%d", &x1);
-
-    printf("\nEnter the y-coordinates of the stack: ");
-    scanf("%d", &y1);
-
-    if(board[y1][x1].type == VALID)
-    {
-        printf("\nInput the co-ordinates of where you would like to move:\n ");
-
-        printf("Enter the x-coordinates of the place: ");
-        scanf("%d", &x2);
-
-        printf("Enter the y-coordinates of the placw: ");
-        scanf("%d", &y2);
-
-        if (board[y2][x2].type == VALID)
-        {
-            if (board[y1][x1].num_pieces >= (abs(x2 - x1) + abs(y2 - y1))) {
-                board[y2][x2].num_pieces += board[y1][x1].num_pieces;
-
-                if (board[y2][x2].num_pieces > 5)
-                {
-
-                }
-            }
-
-        }
-
-
-    }
-
-}
 
