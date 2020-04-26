@@ -1,6 +1,5 @@
-//
-// Created by Lili on 26/03/2020.
-//
+// Created by Abhijeet_19370773
+
 
 #include <stdio.h>
 
@@ -20,10 +19,12 @@ int main()
 
     print_board(board);
 
-    while (1)
+    while (turn >= 0)
     {
-        turns(players, board, turn);
+        turns(players, board, turn % 2);
         print_board(board);
+
+        turn++;
     }
 
     return 0;

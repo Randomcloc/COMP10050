@@ -1,4 +1,4 @@
-// Created by Abhijeet Suryawanshi on 21/04/2020.
+// Created by Abhijeet_19370773
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -8,7 +8,10 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
 {
     int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
 
-    while(board[y1][x1].type == INVALID)
+    printf("\n%s's turn:\n", players[turn].name);
+
+
+    while(board[y1][x1].type == INVALID && board[y1][x1].stack != NULL && board[y1][x1].stack->p_color != players[turn].player_color)
     {
         printf("\nSelect which stack you would like to move by entering the coordinates(x and y).\n ");
 
@@ -34,13 +37,11 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
 
     if (board[y1][x1].num_pieces >= (abs(x2 - x1) + abs(y2 - y1)))
     {
-        //board[y2][x2].num_pieces += board[y1][x1].num_pieces;
-
         mergeStacks(&board[y1][x1], &board[y2][x2]);
 
         if (board[y2][x2].num_pieces > 5)
         {
-
+            removePieces(&board[y2][x2]);
         }
     }
 
@@ -49,8 +50,8 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
 
 void mergeStacks(square* origin, square* new)
 {
-    piece* temp_board = origin->stack;
-    piece* temp = temp_board;
+    piece* temp_stack = origin->stack;
+    piece* temp = temp_stack;
 
     int i = 0;
 
@@ -69,6 +70,29 @@ void mergeStacks(square* origin, square* new)
     origin->stack = NULL;
     origin->num_pieces = 0;
     new->num_pieces = i + new->num_pieces;
-    new->stack = temp_board;
+    new->stack = temp_stack;
+
+}
+
+void removePieces(square* square1)
+{
+    piece *temp = square1->stack;
+
+    int i = 0;
+
+    while(temp->next != NULL)
+    {
+        temp = temp->next;
+
+        if(i > 4)
+        {
+            temp->next = NULL;
+        }
+
+        i++;
+    }
+
+    square1->num_pieces = 5;
+
 
 }
