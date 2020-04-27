@@ -17,7 +17,7 @@ void print_board(square board[BOARD_SIZE][BOARD_SIZE])
 
     for(int i = 0; i < BOARD_SIZE; i ++)
     {
-        printf("%d ", i);
+        printf("%d ", i);                                                               /* This print statement prints the co-ordinates of the pieces on the sides of the board. */
 
         for (int j = 0; j < BOARD_SIZE; j++)
         {

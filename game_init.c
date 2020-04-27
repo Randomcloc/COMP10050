@@ -5,17 +5,17 @@
 #include <string.h>
 #include "game_init.h"
 
-void initialize_players(player players[PLAYERS_NUM])
+void initialize_players(player players[PLAYERS_NUM])                                                //This function asks the players for their details and assigns a color to them.
 {
-    char color;
-                                                                // implement here the functionality to initialize the players
-    for (int i = 0; i < PLAYERS_NUM; i++)
+    char color;                                                                                     /* This is a holder for the color that player 1 will choose. */
+
+    for (int i = 0; i < PLAYERS_NUM; i++)                                                           //The for() loop runs twice for each player's documentation of details.
     {
         printf("Player %d, enter your name: ", (i + 1));
         scanf("%s", players[i].name);
 
-        if (i == 0)
-        {
+        if (i == 0)                                                                                 /* The first player gets the choice of color and the second player */
+        {                                                                                           /* is assigned the only other available color. */
             while (color != 'G' && color != 'R')
             {
                 printf("Enter which color you would like, Red(R) or Green(G)?: ");
@@ -42,40 +42,38 @@ void initialize_players(player players[PLAYERS_NUM])
 }
 
 //Set Invalid Squares (where it is not possible to place stacks)
-int set_invalid(square * s){
+void set_invalid(square* s){
 s->type = INVALID;
 s->stack = NULL;
 s->num_pieces = 0;
-    return 0;
 }
 
 //Set Empty Squares (with no pieces/stacks)
-int set_empty(square * s){
+void set_empty(square* s){
 s->type = VALID;
 s->stack = NULL;
 s->num_pieces = 0;
-    return 0;
+
 }
 
 //Set squares  with a GREEN piece
-int set_green(square * s){
+void set_green(square* s){
 s->type = VALID;
-s->stack = (piece *) malloc (sizeof(piece));
+s->stack = (piece*) malloc (sizeof(piece));
 s->stack->p_color = GREEN;
 s->stack->next = NULL;
 s->num_pieces = 1;
-    return 0;
+
 }
 
 //Set squares with a RED piece
-int set_red(square * s){
+void set_red(square* s){
 s->type = VALID;
-s->stack = (piece *) malloc (sizeof(piece));
+s->stack = (piece*) malloc (sizeof(piece));
 s->stack->p_color = RED;
 s->stack->next = NULL;
 s->num_pieces = 1;
 
-    return 0;
 }
 
 //initializes the board

@@ -71,6 +71,9 @@ void initialize_players(player players[PLAYERS_NUM]);
 //Function to create the board
 void initialize_board(square board[BOARD_SIZE][BOARD_SIZE]);
 
+void set_green(square* s);
+void set_red(square* s);
+
 #endif //FOCUS_GAME_INIT_H
 
 

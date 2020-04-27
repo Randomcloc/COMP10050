@@ -6,10 +6,5 @@
 void winConditions(player players[PLAYERS_NUM], piece piece1, square board [BOARD_SIZE][BOARD_SIZE], int turn, int x1, int y1)
 {
     
-    if(players[turn].player_color != board[y1][x1].stack->p_color)
-    {
-
-    }
-
 
 }
