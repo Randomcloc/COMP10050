@@ -7,6 +7,6 @@
 
 void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], int turn);
 void mergeStacks(square* origin, square* new);
-void removePieces(square* square1);
+void removePieces(square* square1, player players[PLAYERS_NUM]);
 
 #endif //FOCUS_TURNS_H

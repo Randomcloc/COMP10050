@@ -11,10 +11,8 @@
 
 void print_board(square board[BOARD_SIZE][BOARD_SIZE])
 {
-    printf("****** The Board ******\n");
-
-    printf("     0     1     2     3     4     5     6     7");
-
+    printf("\n              -----~~ The Board ~~-----            \n");
+    printf("     0     1     2     3     4     5     6     7       ");
     printf("\n  <-----x-----x-----x-----x-----x-----x-----x----->\n");
 
     for(int i = 0; i < BOARD_SIZE; i ++)
@@ -26,7 +24,10 @@ void print_board(square board[BOARD_SIZE][BOARD_SIZE])
             if(board[i][j].type == VALID)
             {
                 if(board[i][j].stack == NULL)
+                {
                     printf("|     ");
+                }
+
                 else
                 {
                     if (board[i][j].stack->p_color == GREEN)
@@ -40,11 +41,13 @@ void print_board(square board[BOARD_SIZE][BOARD_SIZE])
                     }
                 }
             }
+
             else
             {
-                printf("|  -  ");
+                printf("|  \\  ");
             }
         }
+
         printf("|\n  <-----x-----x-----x-----x-----x-----x-----x----->\n");
     }
 }

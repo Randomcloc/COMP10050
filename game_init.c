@@ -16,14 +16,10 @@ void initialize_players(player players[PLAYERS_NUM])
 
         if (i == 0)
         {
-            printf("Enter which color you would like, Red(R) or Green(G)?: ");
-            scanf("\n%c", &color);
-
             while (color != 'G' && color != 'R')
             {
                 printf("Enter which color you would like, Red(R) or Green(G)?: ");
                 scanf("\n%c", &color);
-
             }
 
             if (color == 'G')
@@ -31,7 +27,7 @@ void initialize_players(player players[PLAYERS_NUM])
                 players[i].player_color = GREEN;
                 color = 'R';
 
-                printf("\nPlayer 2 is Red(R). ");
+                printf("\nPlayer 2 is Red(R).\n");
             }
 
             else if (color == 'R')
@@ -39,7 +35,7 @@ void initialize_players(player players[PLAYERS_NUM])
                 players[i].player_color = RED;
                 color = 'G';
 
-                printf("\nPlayer 2 is Green(G). ");
+                printf("\nPlayer 2 is Green(G).\n");
             }
         }
     }
