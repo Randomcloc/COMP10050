@@ -8,8 +8,9 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
 {
     int x1 = 0, y1 = 0, x2 = 0, y2 = 0;                                                                             /* These variables are the co-ordinate holders. */
     char choice = '\0';
+    char* colors[2] = {"RED", "GREEN"};
 
-    printf("\n%s'S TURN:\n", players[turn].name);
+    printf("\n%s's (%s) TURN:\n", players[turn].name, colors[turn]);
     printf("Pieces reserved: %d. Pieces captured: %d.\n", players[turn].pieces_res, players[turn].pieces_cap);
 
     if(players[turn].pieces_res > 0)
@@ -58,7 +59,6 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
 
                 if(players[turn].player_color != board[y1][x1].stack->p_color)                                      //If the stack selected is not of the player's own color, then they cannot move it.
                 {
-                    printf("%d", turn);
 
                     printf("\nError: Please pick a stack with your piece as the top piece on the stack.\n");        /* An error is printed and the loop restarts because y1 and x1 are set to 0 again. */
 
@@ -96,43 +96,39 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
 
 void mergeStacks(square* origin, square* new)                                                                       //This function adds two stacks to each other after a movement from the player.
 {
-    piece* temp_stack = origin->stack;
-    piece* temp = temp_stack;
-
-    int i = 0;
+    piece* temp = origin->stack;
 
     while(temp->next != NULL)
     {
         temp = temp->next;
-
-        i++;
     }
 
-    i++;
-
     temp->next = new->stack;
-    origin->stack = NULL;
+    new->stack = origin->stack;
+    new->num_pieces += origin->num_pieces;
     origin->num_pieces = 0;
-    new->num_pieces = i + new->num_pieces;
-    new->stack = temp_stack;
+    origin->stack = NULL;
 
 }
 
 void removePieces(square* square1, player* player1)
 {
-    piece* temp = square1->stack;
+    piece* temp = NULL;
+    piece* last = NULL;
 
     while (square1->num_pieces > 5)
     {
-        while (temp->next != NULL /*&& temp->next->next != NULL*/)
+        temp = square1->stack;
+
+        while (temp->next->next != NULL)
         {
             temp = temp->next;
         }
 
-        temp->next = NULL;
+        last = temp->next;
         square1->num_pieces--;
 
-        if(temp->p_color == player1->player_color)
+        if(last->p_color == player1->player_color)
         {
             player1->pieces_res++;
         }
@@ -142,6 +138,8 @@ void removePieces(square* square1, player* player1)
             player1->pieces_cap++;
         }
 
-    }
+        temp->next = NULL;
+        free(last);
 
+    }
 }

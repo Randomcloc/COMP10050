@@ -26,16 +26,7 @@ player winConditions(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOAR
     {
         if (players[p].pieces_res == 0 && !movement(players[p], board))
         {
-            if (players[p].player_color == GREEN)
-            {
-                return players[0];
-            }
-
-            else
-            {
-                return players[1];
-            }
-
+            return players[(p + 1) % 2];
         }
     }
 
