@@ -10,10 +10,10 @@ void initialize_players(player players[PLAYERS_NUM])                            
 
     for (int i = 0; i < PLAYERS_NUM; i++)                                                           //The for() loop runs twice for each player's documentation of details.
     {
-        printf("Player %d, enter your name: ", (i + 1));
+        printf("Player %d, enter your name: ", (i + 1));                                            /* The name of the player is asked and stored in the player struct. */
         scanf("%s", players[i].name);
 
-        players[i].player_color = (enum color)i;
+        players[i].player_color = (enum color)i;                                                    //The rest of the player's details are initialized.
         players[i].pieces_res = 0;
         players[i].pieces_cap = 0;
 

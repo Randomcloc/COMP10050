@@ -7,18 +7,18 @@
 void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], int turn)                            //This function implements all the movement logic required for the game.
 {
     int x1 = 0, y1 = 0, x2 = 0, y2 = 0;                                                                             /* These variables are the co-ordinate holders. */
-    char choice = '\0';
-    char* colors[2] = {"RED", "GREEN"};
+    char choice = '\0';                                                                                             /* This is a choice holder to check if the player wants to place a reserved piece. */
+    char* colors[2] = {"RED", "GREEN"};                                                                             /* A color array is created so that the player's color will be printed at their turn. */
 
-    printf("\n%s's (%s) TURN:\n", players[turn].name, colors[turn]);
+    printf("\n%s's (%s) TURN:\n", players[turn].name, colors[turn]);                                                //The player's name and color, along with their reserved and captured pieces is printed.
     printf("Pieces reserved: %d. Pieces captured: %d.\n", players[turn].pieces_res, players[turn].pieces_cap);
 
-    if(players[turn].pieces_res > 0)
+    if(players[turn].pieces_res > 0)                                                                                //This conditional is only true if the player has at least 1 reserved piece that they can place.
     {
         printf("\nDo you want to place a reserved piece?(y/n): ");
         scanf("\n%c", &choice);
 
-        if(choice == 'y')
+        if(choice == 'y')                                                                                           //If the player chooses to place their reserved piece...
         {
             while(board[y1][x1].type == INVALID || board[y1][x1].stack != NULL)                                     //This loop runs until the player selects a VALID stack to move.
             {
@@ -31,21 +31,21 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
                 scanf("%d", &y1);
             }
 
-            if(players[turn].player_color == RED)
+            if(players[turn].player_color == RED)                                                                   //If the player color is RED, then place a red piece on an empty square
             {
                 set_red(&board[y1][x1]);
-                players[turn].pieces_res--;
+                players[turn].pieces_res--;                                                                         //And decrement the number of the player's pieces reserved.
             }
 
-            if(players[turn].player_color == GREEN)
+            if(players[turn].player_color == GREEN)                                                                 //If the player color is GREEN, then place a green piece on an empty square.
             {
                 set_green(&board[y1][x1]);
-                players[turn].pieces_res--;
+                players[turn].pieces_res--;                                                                         //Decrement the number of the player's pieces reserved.
             }
         }
     }
 
-    if (choice == '\0' || choice == 'n')
+    if (choice == '\0' || choice == 'n')                                                                            //If the player chooses not to place their piece, or doesn't choose at all...
     {
         while(board[y1][x1].type == INVALID)                                                                        //This loop runs until the player selects a VALID stack to move.
         {
@@ -80,66 +80,65 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
 
         }
 
-        if (board[y1][x1].num_pieces >= (abs(x2 - x1) + abs(y2 - y1)))                                              //If the number of pieces in the stack are greater than the difference in x and y co-ordinates
-        {                                                                                                           //Merge the stacks in the two squares.
-            mergeStacks(&board[y1][x1], &board[y2][x2]);
+        if (board[y1][x1].num_pieces >= (abs(x2 - x1) + abs(y2 - y1)))                                              //If the number of pieces in the stack are greater than the difference in x and y co-ordinates...
+        {
+            mergeStacks(&board[y1][x1], &board[y2][x2]);                                                            //Merge the stacks in the two squares.
 
-            if (board[y2][x2].num_pieces > 5)                                                                       //If the number of pieces on the square that the player moved to are more than 5, remove some pieces.
+            if (board[y2][x2].num_pieces > 5)                                                                       //If the number of pieces on the square that the player moved to are more than 5, remove some pieces...
             {
                 removePieces(&board[y2][x2], &players[turn]);
             }
         }
     }
 
-
 }
 
-void mergeStacks(square* origin, square* new)                                                                       //This function adds two stacks to each other after a movement from the player.
+void mergeStacks(square* origin, square* new)                       //This function adds two stacks to each other after a movement from the player.
 {
-    piece* temp = origin->stack;
+    piece* temp = origin->stack;                                    /* temp here pointing to the top of the original stack. */
 
-    while(temp->next != NULL)
+    while(temp->next != NULL)                                       //While the next piece in the stack is not NULL...
     {
-        temp = temp->next;
+        temp = temp->next;                                          /* temp points to the next piece in the stack. */
     }
 
-    temp->next = new->stack;
-    new->stack = origin->stack;
-    new->num_pieces += origin->num_pieces;
-    origin->num_pieces = 0;
-    origin->stack = NULL;
+    temp->next = new->stack;                                        /* The next piece after temp is now the top of the new stack. */
+    new->stack = origin->stack;                                     /* The new stack equal to the original stack. */
+    new->num_pieces += origin->num_pieces;                          /* The number of pieces in the new formed stack is equal to the added pieces of the original pieces and the new stack. */
+    origin->num_pieces = 0;                                         /* The number of pieces in original stack is set to 0. */
+    origin->stack = NULL;                                           /* The original stack is set to NULL. */
 
 }
 
-void removePieces(square* square1, player* player1)
+void removePieces(square* square1, player* player1)                 //This function removes pieces from the bottom of the stack.
 {
-    piece* temp = NULL;
-    piece* last = NULL;
+    piece* temp = NULL;                                             /* The temp piece is initialized to NULL. */
+    piece* last = NULL;                                             /* The last piece is initialized to NULL. */
 
-    while (square1->num_pieces > 5)
+    while (square1->num_pieces > 5)                                 //While the number of pieces in the stack in square1 is greater than 5...
     {
-        temp = square1->stack;
+        temp = square1->stack;                                      /* temp is set to the top of the square1 stack. */
 
-        while (temp->next->next != NULL)
+        while (temp->next->next != NULL)                            //While the second-next piece in the stack is not NULL...
         {
-            temp = temp->next;
+            temp = temp->next;                                      /* temp is equal to the next piece in the stack. */
         }
 
-        last = temp->next;
-        square1->num_pieces--;
+        last = temp->next;                                          /* last is set to the next piece in temp, which is the last piece after the loop ends. */
+        square1->num_pieces--;                                      /* The number of pieces in the square1 stack is decremented. */
 
-        if(last->p_color == player1->player_color)
+        if(last->p_color == player1->player_color)                  //If the color of the last piece is equal to the color of the player...
         {
-            player1->pieces_res++;
+            player1->pieces_res++;                                  /* Increment the reserved pieces counter for the player. */
         }
 
-        else
+        else                                                        //Else, increment the captured pieces counter for the player.
         {
             player1->pieces_cap++;
         }
 
-        temp->next = NULL;
-        free(last);
+        temp->next = NULL;                                          /* The last piece is set to NULL after it is accounted for. */
+        free(last);                                                 /* The last piece HOLDER is freed. */
 
     }
 }
