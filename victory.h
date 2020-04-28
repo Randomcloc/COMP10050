@@ -5,4 +5,6 @@
 
 #include "game_init.h"
 
+player winConditions(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE]);
+
 #endif //FOCUS_VICTORY_H

@@ -2,42 +2,24 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "game_init.h"
 
 void initialize_players(player players[PLAYERS_NUM])                                                //This function asks the players for their details and assigns a color to them.
 {
-    char color;                                                                                     /* This is a holder for the color that player 1 will choose. */
+
+    enum color colors[2] = {RED, GREEN};
+
+    printf("\nPlayer 1 is Red, Player 2 is Green.\n");
 
     for (int i = 0; i < PLAYERS_NUM; i++)                                                           //The for() loop runs twice for each player's documentation of details.
     {
         printf("Player %d, enter your name: ", (i + 1));
         scanf("%s", players[i].name);
 
-        if (i == 0)                                                                                 /* The first player gets the choice of color and the second player */
-        {                                                                                           /* is assigned the only other available color. */
-            while (color != 'G' && color != 'R')
-            {
-                printf("Enter which color you would like, Red(R) or Green(G)?: ");
-                scanf("\n%c", &color);
-            }
+        players[i].player_color = colors[i];
+        players[i].pieces_res = 0;
+        players[i].pieces_cap = 0;
 
-            if (color == 'G')
-            {
-                players[i].player_color = GREEN;
-                color = 'R';
-
-                printf("\nPlayer 2 is Red(R).\n");
-            }
-
-            else if (color == 'R')
-            {
-                players[i].player_color = RED;
-                color = 'G';
-
-                printf("\nPlayer 2 is Green(G).\n");
-            }
-        }
     }
 }
 

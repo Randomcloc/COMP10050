@@ -10,7 +10,9 @@
 typedef enum color
 {
     RED,
-    GREEN
+    GREEN,
+    WHITE
+
 }color;
 
 // Square types

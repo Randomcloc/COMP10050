@@ -1,15 +1,17 @@
 // Created by Abhijeet_19370773
 
-#include <stdio.h>
 #include "input_output.h"
 #include "turns.h"
+#include "victory.h"
 
 int main(void)
 {
     // declaration of the players and the board
     player players[PLAYERS_NUM];
     square board[BOARD_SIZE][BOARD_SIZE];
+
     int turn = 0;
+    player winner;
 
     initialize_players(players);
 
@@ -23,8 +25,17 @@ int main(void)
         turns(players, board, turn % 2);
         print_board(board);
 
+        winner = winConditions(players, board);
+
+        if (winner.player_color != WHITE)
+        {
+            turn = -2;
+        }
+
         turn++;
     }
+
+    //winner declaration...
 
     return 0;
 }

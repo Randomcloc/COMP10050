@@ -10,6 +10,7 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
     char choice;
 
     printf("\n%s'S TURN:\n", players[turn].name);
+    printf("Pieces reserved: %d. Pieces captured: %d.\n", players[turn].pieces_res, players[turn].pieces_cap);
 
     if(players[turn].pieces_res > 0)
     {
@@ -57,6 +58,8 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
 
                 if(players[turn].player_color != board[y1][x1].stack->p_color)                                      //If the stack selected is not of the player's own color, then they cannot move it.
                 {
+                    printf("%d", turn);
+
                     printf("\nError: Please pick a stack with your piece as the top piece on the stack.\n");        /* An error is printed and the loop restarts because y1 and x1 are set to 0 again. */
 
                     y1 = 0;
@@ -83,7 +86,7 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
 
             if (board[y2][x2].num_pieces > 5)                                                                       //If the number of pieces on the square that the player moved to are more than 5, remove some pieces.
             {
-                removePieces(&board[y2][x2], players);
+                removePieces(&board[y2][x2], &players[turn]);
             }
         }
     }
@@ -114,37 +117,30 @@ void mergeStacks(square* origin, square* new)                                   
 
 }
 
-void removePieces(square* square1, player players[PLAYERS_NUM])
+void removePieces(square* square1, player* player1)
 {
     piece* temp = square1->stack;
 
-    int i = 0;
-
-    while(temp->next != NULL)
+    while (square1->num_pieces > 5)
     {
-        if(i >= 5)
+        while (temp->next->next != NULL)
         {
-            if(temp->p_color == players->player_color)
-            {
-                players->pieces_res++;
-            }
-
-            else
-            {
-                players->pieces_cap++;
-            }
+            temp = temp->next;
         }
 
-        temp = temp->next;
+        temp->next = NULL;
+        square1->num_pieces--;
 
-        if(i == 4)
+        if(temp->p_color == player1->player_color)
         {
-            temp->next = NULL;
-
-            square1->num_pieces = 5;
+            player1->pieces_res++;
         }
 
-        i++;
+        else
+        {
+            player1->pieces_cap++;
+        }
 
     }
+
 }
