@@ -1,5 +1,6 @@
 // Created by Abhijeet_19370773
 
+#include <stdio.h>
 #include "input_output.h"
 #include "turns.h"
 #include "victory.h"
@@ -36,6 +37,8 @@ int main(void)
     }
 
     //winner declaration...
+
+    printf("\nVictory\n");
 
     return 0;
 }

@@ -7,7 +7,7 @@
 void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], int turn)                            //This function implements all the movement logic required for the game.
 {
     int x1 = 0, y1 = 0, x2 = 0, y2 = 0;                                                                             /* These variables are the co-ordinate holders. */
-    char choice;
+    char choice = '\0';
 
     printf("\n%s'S TURN:\n", players[turn].name);
     printf("Pieces reserved: %d. Pieces captured: %d.\n", players[turn].pieces_res, players[turn].pieces_cap);
@@ -36,7 +36,7 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
                 players[turn].pieces_res--;
             }
 
-            else if(players[turn].player_color == GREEN)
+            if(players[turn].player_color == GREEN)
             {
                 set_green(&board[y1][x1]);
                 players[turn].pieces_res--;
@@ -44,7 +44,7 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
         }
     }
 
-    else
+    if (choice == '\0' || choice == 'n')
     {
         while(board[y1][x1].type == INVALID)                                                                        //This loop runs until the player selects a VALID stack to move.
         {
@@ -68,7 +68,7 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
 
         }
 
-        while(board[y2][x2].type == INVALID || board[y1][x1].num_pieces < (abs(x2 - x1) + abs(y2 - y1)))            //This loop will run until the selected square that the player wants to move to is VALID.
+        while (board[y2][x2].type == INVALID || board[y1][x1].num_pieces < (abs(x2 - x1) + abs(y2 - y1)))            //This loop will run until the selected square that the player wants to move to is VALID.
         {                                                                                                           //The player should only be allowed to move as many steps (or less) as the number of pieces on the stack.
             printf("\nInput the co-ordinates of WHICH SQUARE you would like to move to:\n ");
 
@@ -90,6 +90,7 @@ void turns(player players[PLAYERS_NUM], square board [BOARD_SIZE][BOARD_SIZE], i
             }
         }
     }
+
 
 }
 
@@ -123,7 +124,7 @@ void removePieces(square* square1, player* player1)
 
     while (square1->num_pieces > 5)
     {
-        while (temp->next->next != NULL)
+        while (temp->next != NULL /*&& temp->next->next != NULL*/)
         {
             temp = temp->next;
         }
